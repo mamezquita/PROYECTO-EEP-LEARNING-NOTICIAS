@@ -141,6 +141,15 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   mensaje explícito si el modo legado no tomó efecto (la solución en ese
   caso es reiniciar el entorno de ejecución y volver a correr esa celda
   primero, antes que cualquier otra).
+- **`transformers` fijado por debajo de 5.0 (§1)**: el 26 de enero de 2026
+  se publicó `transformers` 5.0, que eliminó por completo el soporte
+  TensorFlow/Flax — `TFAutoModelForSequenceClassification` y toda la
+  familia `TF*` ya no existen ahí. Sin fijar versión, `pip install
+  transformers[tf]` en Colab instala la serie 5.x y la importación falla de
+  inmediato. La celda instala `"transformers[tf]>=4.44,<5.0"` y agrega un
+  segundo `assert` explícito sobre la versión mayor instalada, para que un
+  futuro cambio de este tipo falle con un mensaje claro en vez de un
+  `ImportError` críptico más abajo en el notebook.
 
 **Advertencia honesta:** el entorno donde se escribió este notebook no
 tiene TensorFlow instalable (incompatibilidad con la versión de Python

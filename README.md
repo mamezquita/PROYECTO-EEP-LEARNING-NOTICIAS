@@ -133,6 +133,14 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   por época en el hardware asignado y estima la duración total **antes**
   de lanzar la búsqueda completa, y guarda hiperparámetros ganadores,
   métricas de prueba e historial de intentos al final.
+- **Compatibilidad Keras 3 (§1)**: Colab trae TensorFlow ≥2.16, cuyo
+  `tf.keras` es Keras 3 por defecto — algo con lo que `transformers` (los
+  modelos TF) y Keras Tuner todavía no son totalmente compatibles. La
+  primera celda instala `tf-keras` y fija `TF_USE_LEGACY_KERAS=1` **antes**
+  de importar `tensorflow`, y termina con un `assert` que falla con un
+  mensaje explícito si el modo legado no tomó efecto (la solución en ese
+  caso es reiniciar el entorno de ejecución y volver a correr esa celda
+  primero, antes que cualquier otra).
 
 **Advertencia honesta:** el entorno donde se escribió este notebook no
 tiene TensorFlow instalable (incompatibilidad con la versión de Python

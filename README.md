@@ -46,6 +46,7 @@ artículo no explicita:
 | `Ejecucion_final_espanola_baseline_roberta_bne.ipynb` | Casi idéntico al anterior; pensado para correr el mismo pipeline sobre un corpus español en vez del colombiano. |
 | `fake_news_es_baseline.ipynb` | Versión refactorizada y unificada de los dos anteriores (ver "Diferencias entre los tres notebooks" abajo). |
 | `auditoria_construccion_corpus.ipynb` | **Notebook de auditoría**: todo el código que se usó para ampliar el corpus de 793 a 3.259 filas, en el orden en que se ejecutó. No entrena ningún modelo — es un registro reproducible de cómo se construyeron los datos. |
+| `finetuning_bayesiano_colombia.ipynb` | Ajuste fino de RoBERTa-BNE sobre el corpus colombiano, reemplazando el ajuste manual de hiperparámetros del artículo por una búsqueda bayesiana con Keras Tuner. Pensado para correrse de punta a punta en Colab con GPU. Ver detalle abajo. |
 
 ## Los notebooks de modelado
 
@@ -97,6 +98,50 @@ secciones (`§1`, `§2`, ...) muy similar. Todos:
   **elimina el generador de datos sintéticos** ("prohibido por la guía de
   la asignatura") y en su lugar el notebook simplemente se detiene con un
   error claro si no encuentra el archivo real.
+
+### `finetuning_bayesiano_colombia.ipynb`: búsqueda bayesiana en vez de ajuste manual
+
+Toma el mismo modelo (RoBERTa-BNE) y el corpus colombiano actual (3.259
+filas), pero reemplaza el ajuste manual de hiperparámetros del artículo por
+`keras_tuner.BayesianOptimization`. El artículo mismo explica por qué usó
+ajuste manual: descartó `GridSearchCV`, `RandomizedSearchCV`, Optuna y
+Hyperopt por considerarlos costosos o propensos a pasar por alto
+combinaciones importantes. Este notebook llena exactamente ese hueco.
+
+- **Busca** los 5 hiperparámetros que el artículo ajustó a mano (tasa de
+  aprendizaje, tamaño de lote, *dropout*, regularización L2, duración del
+  entrenamiento vía parada temprana), usando los valores de su Tabla 3
+  (RoBERTa: LR 1×10⁻⁵, lote 16, *dropout* 0.15, L2 0.001, 10 épocas) como
+  **centro** del espacio de búsqueda, no como valores fijos.
+- **Busca además** dos hiperparámetros que el artículo no reporta en
+  absoluto (no aparece "patience" ni "ReduceLROnPlateau" en ningún lugar
+  del texto): factor y paciencia de reducción de tasa de aprendizaje sobre
+  meseta, y paciencia de parada temprana.
+- **Mantiene igual que el artículo**: cero capas congeladas — el artículo
+  dice explícitamente *"The entire model is fine-tuned without freezing
+  any layers"*. No hay ningún hiperparámetro de congelamiento acá porque
+  tampoco lo hay en el artículo.
+- **Cambio de framework deliberado**: Keras Tuner es nativo de
+  TensorFlow/Keras, así que este notebook usa
+  `TFAutoModelForSequenceClassification` en vez del PyTorch de los otros
+  tres notebooks. Es un cambio limitado a este notebook, no una migración
+  del proyecto.
+- **Pensado para correrse de punta a punta en Colab con GPU** sin edición
+  previa: pide el archivo del corpus por un diálogo de subida, corre una
+  prueba de humo barata (1 intento, 1 época, ~30 filas) para detectar
+  fallas de integración antes de gastar tiempo real, mide el tiempo real
+  por época en el hardware asignado y estima la duración total **antes**
+  de lanzar la búsqueda completa, y guarda hiperparámetros ganadores,
+  métricas de prueba e historial de intentos al final.
+
+**Advertencia honesta:** el entorno donde se escribió este notebook no
+tiene TensorFlow instalable (incompatibilidad con la versión de Python
+disponible ahí), así que el código se revisó cuidadosamente contra la
+documentación oficial pero **no se pudo ejecutar de punta a punta antes de
+entregarlo** — a diferencia de los notebooks en PyTorch, que sí se
+pudieron probar parcialmente. La prueba de humo (§12) existe justamente
+para que un error de integración se note en menos de un minuto al
+correrlo en Colab, no después de una búsqueda de una hora.
 
 ## El dataset original (793 filas heredadas)
 

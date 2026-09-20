@@ -9,6 +9,33 @@ BERT and RoBERTa Transformer Models"*, Applied Sciences 14(21): 9729
 57.231 noticias políticas en español (46.000 entrenamiento / 11.231 prueba),
 combinando *scraping* automatizado con generación asistida por LLM.
 
+### El corpus original del artículo (español, no el colombiano)
+
+El propio artículo declara su fuente de datos en la sección *Data
+Availability Statement*, accesible a través del depósito en acceso abierto
+del repositorio institucional de la Universidade de Vigo (Investigo,
+`investigo.biblioteca.uvigo.es`, ítem `11093/8538`) — MDPI bloquea el acceso
+automatizado al PDF directamente, así que se recuperó por esa vía:
+
+- **Dataset**: [`kaggle.com/datasets/javieroterovizoso/spanish-political-fake-news`](https://www.kaggle.com/datasets/javieroterovizoso/spanish-political-fake-news)
+  (CC BY 4.0). Descarga requiere una cuenta de Kaggle con token de API; no
+  se incluye una copia en este repositorio.
+- **Código de entrenamiento**: [`github.com/gssi-uvigo/debatrue`](https://github.com/gssi-uvigo/debatrue)
+  (scripts de validación cruzada para BERT, BETO, RoBERTa-BNE, Bertin y
+  XLM-RoBERTa-Base; no incluye una copia de los datos).
+
+La descripción del dataset en Kaggle precisa varios detalles que el
+artículo no explicita:
+
+- Noticias reales obtenidas por *scraping* de **Público, La Marea y El
+  Común**.
+- Noticias falsas construidas de dos formas: alterando datos de las
+  noticias reales, y generadas con IA.
+- Rango de fechas: **abril de 2017 a junio de 2023**.
+- Formato: CSV delimitado por `;`, columnas `ID;Label;Titulo;Descripcion;Fecha`
+  (`Label`: 1 = real, 0 = falsa — misma convención que
+  `dataset_politica_colombiana.xlsx`, pero **sin columna de URL**).
+
 ## Contenido del repositorio
 
 | Archivo | Qué es |

@@ -1,0 +1,39 @@
+Loading existing dataset...
+  2129 existing rows, next id = 2131
+
+Discovering politica sitemap sub-pages...
+  101 sub-pages available (100 URLs each, spans the full archive)
+  sampling 21 pages spread across the archive
+
+Collecting candidate URLs from sampled pages...
+  ...5/21 pages, 382 new candidate URLs so far
+  ...10/21 pages, 880 new candidate URLs so far
+  ...15/21 pages, 1380 new candidate URLs so far
+  ...20/21 pages, 1880 new candidate URLs so far
+
+Total new candidate URLs: 1880
+Using 1299 candidates (buffered above target 1130)
+
+Fetching 1299 articles with 8 workers...
+  ...150/1299 fetched (150 ok, 0 failed)
+  ...300/1299 fetched (300 ok, 0 failed)
+  ...450/1299 fetched (450 ok, 0 failed)
+  ...600/1299 fetched (600 ok, 0 failed)
+  ...750/1299 fetched (750 ok, 0 failed)
+  ...900/1299 fetched (900 ok, 0 failed)
+  ...1050/1299 fetched (1050 ok, 0 failed)
+  ...1200/1299 fetched (1200 ok, 0 failed)
+  ...1299/1299 fetched (1299 ok, 0 failed)
+
+Got 1299 usable articles (target was 1130)
+
+Backing up dataset to /home/lis/code/ProyectoDeep/dataset_politica_colombiana.backup_pre_realnews_expansion.xlsx
+Saved. Added 1130 TRUE rows.
+Also wrote a record to /home/lis/code/ProyectoDeep/elespectador_real_news_added.csv
+
+Sample:
+  [05/08/2026] Gustavo Petro: así fueron los cuatro años del llamado “Gobierno del cambio”
+  [05/08/2026] De la Espriella y su gabinete: estos son los 18 ministros de su “patria milagro”
+  [04/08/2026] ¿Petro viajará a Estados Unidos? Ya comenzaron movidas diplomáticas para lograr 
+  [04/08/2026] Petro insiste en que se deben investigar las elecciones que ganó Abelardo de la 
+  [03/08/2026] Finalizan mesas técnicas de gobierno electo y Contraloría: alertas por “falta de

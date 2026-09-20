@@ -1,0 +1,45 @@
+Loading existing dataset claims (colombiacheck.com only)...
+  111 existing (url, title) pairs from colombiacheck.com
+Crawling up to 150 listing pages...
+  collected 1201 unique article paths
+
+Fetching 1201 articles with 8 workers...
+  ...150/1201 articles fetched (124 claims found so far, 0 failed)
+  ...300/1201 articles fetched (248 claims found so far, 0 failed)
+  ...450/1201 articles fetched (374 claims found so far, 0 failed)
+  ...600/1201 articles fetched (496 claims found so far, 0 failed)
+  ...750/1201 articles fetched (621 claims found so far, 0 failed)
+  ...900/1201 articles fetched (750 claims found so far, 0 failed)
+  ...1050/1201 articles fetched (870 claims found so far, 0 failed)
+  ...1200/1201 articles fetched (997 claims found so far, 0 failed)
+  ...1201/1201 articles fetched (998 claims found so far, 0 failed)
+
+Total claims extracted: 998
+  Rated true (excluded): 10
+  Rated false/misleading/other (candidate fake news): 988
+  Colombia-political among those: 600
+  NOT already in dataset: 599
+
+Written: /home/lis/code/ProyectoDeep/colombiacheck_candidates.csv (599 rows)
+
+Sample:
+  [Falso] este guerrillero marica ni siquiera sabe de qué está hablando
+      https://colombiacheck.com/chequeos/video-en-el-que-trump-aparece-insultando-y-llamando-guerrillero-petro-fue-manipulado-con
+  [Falso] Nicolás Petro le ordenó a un juez suspender el juicio en su contra
+      https://colombiacheck.com/chequeos/juicio-contra-nicolas-petro-aun-ni-empieza-y-en-redes-ya-dicen-que-se-suspendio-por-orden
+  [Falso] Crímenes descritos en tabla viral fueron perpetrados por las FARC
+      https://colombiacheck.com/chequeos/imagen-que-atribuye-las-farc-todos-los-crimenes-del-conflicto-armado-reaparece-en-redes
+  [Falso] Nicolás Escobar Soto fue secuestrado y enterrado vivo por Gustavo Petro
+      https://colombiacheck.com/chequeos/desinformacion-que-vincula-petro-con-mortal-secuestro-de-nicolas-escobar-soto-circula-de
+  [Falso] Hoy es hoy. Y ayer fue hoy ayer. Mañana será hoy mañana.
+      https://colombiacheck.com/chequeos/video-manipulado-de-vicepresidenta-kamala-harris-diciendo-hoy-es-hoy-llega-colombia
+  [Falso] Foto de Iván Cepeda junto a Iván Márquez rearmado
+      https://colombiacheck.com/chequeos/peticion-de-investigar-cepeda-por-farc-politica-usa-montaje-que-lo-junta-con-ivan-marquez
+  [Falso] Foto de Martha Peralta en campaña vestida como indígena emberá
+      https://colombiacheck.com/chequeos/satira-contra-martha-peralta-la-compara-con-foto-de-embera-panamena-no-es-ella-en-campana
+  [Falso] Audios de WhatsApp alertan sobre amenazas de bombas en Cali
+      https://colombiacheck.com/chequeos/audios-atribuyen-falsamente-autoridades-de-cali-supuestas-alertas-de-bomba-en-sitios
+  [Cuestionable] Saldo a pagar en la declaración de renta de Uribe en 2018 es de 0 pesos
+      https://colombiacheck.com/chequeos/saldo-del-impuesto-de-renta-de-uribe-en-2018-fue-0-porque-ya-habia-pagado-en-anticipo-y
+  [Falso] Registraduría usó software para inyectar votos al Pacto Histórico en 2022
+      https://colombiacheck.com/chequeos/audio-sobre-supuesta-inyeccion-de-votos-al-pacto-historico-se-basa-en-informes-que-no

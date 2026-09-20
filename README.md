@@ -155,6 +155,26 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   que el modo legado tomó efecto). Se corrigió comparando el nombre del
   módulo (`tf.keras.__name__`, que empieza con `"tf_keras"` en modo legado
   y con `"keras"` en Keras 3) en vez de una versión.
+- **Repositorios del modelo desactualizados (§8)**: probado en Colab, el
+  repositorio del artículo (`PlanTL-GOB-ES/roberta-base-bne`) quedó vacío
+  (solo un README que avisa que se deprecó), y su sucesor
+  (`BSC-LT/roberta-base-bne`, igual que `BSC-TeMU/roberta-base-bne`) ahora
+  exige autenticación en el Hub (HTTP 401 sin token) — confirmado
+  consultando la API del Hub directamente. La lista de candidatos se
+  alineó con la de `fake_news_es_baseline.ipynb`, que ya tenía este
+  problema resuelto: agrega `IsGarrido/roberta-base-bne` (espejo
+  comunitario público, sin autenticación) y cambia el respaldo a
+  `bertin-project/bertin-roberta-base-spanish`. La celda también intenta
+  un login opcional con el secreto `HF_TOKEN` de Colab (si existe), para
+  que quien tenga una cuenta de Hugging Face con acceso pueda igual usar
+  el repositorio canónico de BSC-LT en vez del espejo comunitario.
+
+  Como `IsGarrido/roberta-base-bne` solo trae pesos en formato PyTorch
+  (`pytorch_model.bin`, sin `tf_model.h5` ni `model.safetensors`), el
+  `HyperModel.build()` de §11 ahora reintenta la carga con `from_pt=True`
+  si la carga normal falla — antes no había ningún mecanismo de reintento
+  ahí, así que este espejo habría fallado igual más adelante aunque la
+  resolución de repositorio lo aceptara.
 - **`transformers` fijado por debajo de 5.0, sin el extra `[tf]` (§1)**: el
   26 de enero de 2026 se publicó `transformers` 5.0, que eliminó por
   completo el soporte TensorFlow/Flax — `TFAutoModelForSequenceClassification`

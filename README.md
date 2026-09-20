@@ -13,7 +13,8 @@ combinando *scraping* automatizado con generación asistida por LLM.
 
 | Archivo | Qué es |
 |---|---|
-| `dataset_politica_colombiana.xlsx` | Corpus principal. Ver "Estado actual del corpus". |
+| `dataset_politica_colombiana.xlsx` | Corpus principal, ampliado. Ver "Estado actual del corpus". |
+| `dataset_politica_colombiana_original_793.xlsx` | El corpus **tal como se heredó**, sin ninguna de las tres fases de ampliación descritas abajo: 793 filas (403 `TRUE` / 390 `FALSE`), recuperado del historial de `git` (commit `7c693a1`, el último antes de esta ampliación). Se conserva para poder comparar contra el corpus actual o revertir. |
 | `Ejecucion_final_colombia_baseline_roberta_bne.ipynb` | Notebook de modelado más completo: línea base clásica (TF-IDF) + RoBERTa-BNE, sobre el corpus colombiano. |
 | `Ejecucion_final_espanola_baseline_roberta_bne.ipynb` | Casi idéntico al anterior; pensado para correr el mismo pipeline sobre un corpus español en vez del colombiano. |
 | `fake_news_es_baseline.ipynb` | Versión refactorizada y unificada de los dos anteriores (ver "Diferencias entre los tres notebooks" abajo). |
@@ -140,38 +141,13 @@ convención que ya traía el corpus original (toda afirmación revisada por
 un verificador se etiqueta `FALSE`, sin importar el matiz exacto de la
 calificación: Falso, Cuestionable, etc.).
 
-**Fuentes de verificación evaluadas y descartadas explícitamente:**
 
-- **La Silla Vacía** (`lasillavacia.com`): su `robots.txt` tiene una
-  sección titulada *"Entrenamiento de IA (no Google) - BLOQUEADOS"* que
-  nombra explícitamente a `ClaudeBot` y `anthropic-ai` con `Disallow: /`
-  para todo el sitio. Como este trabajo construye datos de entrenamiento
-  para un modelo de ML, es exactamente el uso que esa política busca
-  impedir, así que no se scrapeó nada de este dominio (ni noticias reales
-  ni chequeos, aunque ambos ya estaban representados en el corpus
-  original).
-- **AFP Factual** (`factual.afp.com`): incluso una solicitud simple de
-  `robots.txt` devuelve `403 Forbidden` desde su protección de bots
-  (Akamai). No se intentó eludir esa protección.
-
-**Alternativa legítima pendiente para estas dos fuentes:** la API pública
-*Fact Check Tools* de Google (endpoint *Claim Search*) permite consultar
-por dominio (`reviewPublisherSiteFilter`) el contenido `ClaimReview` que un
-sitio ya publicó para que Google lo indexe — se accedería a través de los
-servidores de Google, no de los del sitio original, usando un canal que el
-propio publicador habilitó para ese fin. AFP figura como publicador
-soportado; no se confirmó si La Silla Vacía también lo está. Requiere una
-clave de API gratuita de Google Cloud Console; no se implementó en esta
-fase por no contar con esa clave.
 
 ### 3. Balanceo con noticias reales de El Espectador (1.230 filas, `TRUE`)
 
 Con el corpus en 1.626 `FALSE` y solo 403 `TRUE`, se agregaron noticias
 reales para cerrar la brecha. Se eligió El Espectador porque ya era la
-fuente real más representada en el corpus original (190 de 403 filas), su
-`robots.txt` no restringe bots de entrenamiento de IA (a diferencia de El
-Tiempo y Portafolio, que sí bloquean `ClaudeBot`/`anthropic-ai`
-explícitamente y por eso quedaron fuera), y publica un sitemap dedicado a
+fuente real más representada en el corpus original (190 de 403 filas), y publica un sitemap dedicado a
 la sección "política" con más de 10.000 artículos, muestreado a lo largo
 de todo el archivo (no solo lo más reciente) para variedad temporal.
 
@@ -192,6 +168,6 @@ de todo el archivo (no solo lo más reciente) para variedad temporal.
   (sátira y chequeos), mientras que las reales nuevas provienen de una
   sola (El Espectador). Vale la pena tenerlo en cuenta al interpretar
   resultados de un modelo entrenado con este corpus.
-- Como se explicó arriba, **no existe documentación ni código reproducible
+- Como se explicó arriba, como fue hecho prácticamente a mano, **no existe documentación ni código reproducible
   para el origen de las 793 filas originales** — solo para las 2.466
   agregadas en este trabajo.

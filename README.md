@@ -137,10 +137,15 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   `tf.keras` es Keras 3 por defecto — algo con lo que `transformers` (los
   modelos TF) y Keras Tuner todavía no son totalmente compatibles. La
   primera celda instala `tf-keras` y fija `TF_USE_LEGACY_KERAS=1` **antes**
-  de importar `tensorflow`, y termina con un `assert` que falla con un
-  mensaje explícito si el modo legado no tomó efecto (la solución en ese
-  caso es reiniciar el entorno de ejecución y volver a correr esa celda
-  primero, antes que cualquier otra).
+  de importar `tensorflow`, y valida el modo legado con un `assert`
+  **inmediatamente después** de importar `tensorflow` — antes de tocar
+  `keras_tuner` o las clases `TF*` de `transformers` — para que un fallo
+  aparezca con un mensaje claro en el punto exacto del problema, en vez de
+  como un `ImportError` críptico varias líneas más abajo. La celda también
+  revisa que `tensorflow` no esté ya en `sys.modules` al empezar: si la
+  celda se corre dos veces sin reiniciar el entorno de ejecución,
+  `TF_USE_LEGACY_KERAS` ya no tiene efecto sobre el módulo cacheado, y sin
+  este chequeo el resultado sería el mismo `ImportError` confuso.
 - **`transformers` fijado por debajo de 5.0, sin el extra `[tf]` (§1)**: el
   26 de enero de 2026 se publicó `transformers` 5.0, que eliminó por
   completo el soporte TensorFlow/Flax — `TFAutoModelForSequenceClassification`

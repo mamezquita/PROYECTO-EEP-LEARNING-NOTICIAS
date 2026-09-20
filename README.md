@@ -146,6 +146,15 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   celda se corre dos veces sin reiniciar el entorno de ejecución,
   `TF_USE_LEGACY_KERAS` ya no tiene efecto sobre el módulo cacheado, y sin
   este chequeo el resultado sería el mismo `ImportError` confuso.
+
+  El chequeo del modo legado **no** usa `tf.keras.__version__`: probado en
+  Colab (TensorFlow 2.20.0), ese atributo no existe en el shim `tf-keras`
+  y su lectura tira `AttributeError` — un problema en el propio chequeo de
+  diagnóstico, no en el mecanismo de compatibilidad, que sí estaba
+  funcionando (el módulo ya había resuelto a `tf_keras...`, la señal de
+  que el modo legado tomó efecto). Se corrigió comparando el nombre del
+  módulo (`tf.keras.__name__`, que empieza con `"tf_keras"` en modo legado
+  y con `"keras"` en Keras 3) en vez de una versión.
 - **`transformers` fijado por debajo de 5.0, sin el extra `[tf]` (§1)**: el
   26 de enero de 2026 se publicó `transformers` 5.0, que eliminó por
   completo el soporte TensorFlow/Flax — `TFAutoModelForSequenceClassification`

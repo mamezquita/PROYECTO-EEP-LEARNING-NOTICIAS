@@ -155,6 +155,24 @@ combinaciones importantes. Este notebook llena exactamente ese hueco.
   que el modo legado tomó efecto). Se corrigió comparando el nombre del
   módulo (`tf.keras.__name__`, que empieza con `"tf_keras"` en modo legado
   y con `"keras"` en Keras 3) en vez de una versión.
+- **`keras-tuner` fijado en 1.3.5, no la última versión (§1)**: probado en
+  Colab, la HyperModel de §11 fallaba con
+  `FatalTypeError: Expected the model-building function... to return a
+  valid Keras Model instance`, aun devolviendo un modelo Keras válido.
+  Causa (confirmada leyendo el código fuente de `keras-tuner`): desde la
+  1.4.0, `keras_tuner` decide si usar Keras 3 o `tf.keras` mirando la
+  versión del paquete **independiente** `keras` (no `tf.keras`, y por lo
+  tanto sin pasar por `TF_USE_LEGACY_KERAS`) — y como ese paquete siempre
+  es 3.x junto a TensorFlow ≥2.16, `keras_tuner` termina validando el
+  modelo contra `keras.Model` (Keras 3), mientras que el modelo del
+  notebook (por el shim `tf-keras`) es `tf_keras.Model`: son clases
+  distintas, y el `isinstance` de `keras_tuner` falla. La versión 1.3.5 es
+  la última anterior a esa rama de código: siempre usa
+  `from tensorflow import keras`, que sí respeta `TF_USE_LEGACY_KERAS` y
+  queda consistente con el modelo. Se verificó que 1.3.5 sigue exponiendo
+  toda la API que usa el notebook (`BayesianOptimization`, `HyperModel`,
+  `HyperParameters`, `Objective`, `get_best_models`,
+  `get_best_hyperparameters`, `search_space_summary`) antes de fijarla.
 - **Repositorios del modelo desactualizados (§8)**: probado en Colab, el
   repositorio del artículo (`PlanTL-GOB-ES/roberta-base-bne`) quedó vacío
   (solo un README que avisa que se deprecó), y su sucesor

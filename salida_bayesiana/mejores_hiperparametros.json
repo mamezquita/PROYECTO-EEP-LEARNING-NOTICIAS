@@ -1,0 +1,27 @@
+{
+  "mejores_hiperparametros": {
+    "learning_rate": 4.0983871094082436e-05,
+    "dropout": 0.07258496356733739,
+    "weight_decay": 0.008547485565344062,
+    "batch_size": 8,
+    "lr_reduce_factor": 0.3323028659735827,
+    "lr_reduce_patience": 1,
+    "early_stopping_patience": 3
+  },
+  "metricas_test": {
+    "accuracy": 0.951,
+    "f1_macro": 0.951,
+    "precision_macro": 0.9511,
+    "recall_macro": 0.9515,
+    "mcc": 0.9026,
+    "precision_falsa": 0.9336,
+    "recall_falsa": 0.9679,
+    "f1_falsa": 0.9505
+  },
+  "modelo": "IsGarrido/roberta-base-bne",
+  "modelo_sha": "3d54a71ddc029cc1f8dd604e3b7bc0da0e2f7cd9",
+  "n_trials": 8,
+  "objetivo": "val_f1_macro",
+  "convergencia_n_repeticiones": 3,
+  "fecha": "2026-09-22T04:43:10.652998"
+}

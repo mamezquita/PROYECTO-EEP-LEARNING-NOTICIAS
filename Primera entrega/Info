@@ -2,5 +2,5 @@
 #En esta carpeta se encuentran 4 archivos: 
 #-El primero es un documento ipynb con la replicacion del modelo del paper original de noticias creado por los espanoles
 #-El segundo es un documento ipynb con la aplicacion del modelo espanol al contexto colombiano usando una base de datos de noticas colombianas.
-#-El tercero es la base de datos usada por el paper de los espanoles
-#-El cuato es la base de datos usada que creamos a mano para extraer noticias colombiana de diferentes portales mediante de la web, cuenta con etiquetas como 0-falso y 1-verdadero
+#-El tercero es la base de datos usada por el paper de los espanoles.
+#-El cuato es la base de datos usada que creamos a mano para extraer noticias colombiana de diferentes portales mediante de la web, cuenta con etiquetas como 0-falso y 1-verdadero.
